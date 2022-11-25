@@ -13,22 +13,17 @@ def getHomeTeamInfo(soup):
     homeTeamName = homeTeamInfo.find(class_="name")
     homeTeamName = homeTeamName.text
     homeTeamName = homeTeamName.strip()
-
-
     homeTeamScore = homeTeamInfo.find(class_="score")
     homeTeamScore = homeTeamScore.text
     homeTeamScore = homeTeamScore.strip()
     return homeTeamName, homeTeamScore
 
-
 def getAwayTeamInfo(soup):
     tag = soup.body
     awayTeamInfo = tag.find(class_="away-wrapper team-box")
-
     awayTeamName = awayTeamInfo.find(class_="name")
     awayTeamName = awayTeamName.text
     awayTeamName = awayTeamName.strip()
-
     awayTeamScore = awayTeamInfo.find(class_="score")
     awayTeamScore = awayTeamScore.text
     awayTeamScore = awayTeamScore.strip()
