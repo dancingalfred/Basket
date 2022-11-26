@@ -1551,3 +1551,5 @@ env/Scripts/pip3.9.exe
 env/Scripts/pip3.exe
 env/Scripts/python.exe
 env/Scripts/pythonw.exe
+__pycache__/functions.cpython-39.pyc
+__pycache__/functions.cpython-39.pyc
