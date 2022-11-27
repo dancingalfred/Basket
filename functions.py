@@ -73,7 +73,7 @@ def getAllPlayersBoxScore(soup):
         playerStats = playerStats[:-1]
         statsList = list(playerStats.split(";"))
         homePlayer = Player
-        homePlayer.position = statsList[0]
+        homePlayer.position = "C"
         homePlayer.number = statsList[1]
         homePlayer.name = statsList[2]
         homePlayer.minutes = statsList[3]
@@ -110,7 +110,7 @@ def getAllPlayersBoxScore(soup):
         playerStats = playerStats[:-1]
         statsList = list(playerStats.split(";"))
         awayPlayer = Player
-        awayPlayer.position = statsList[0]
+        awayPlayer.position = "C"
         awayPlayer.number = statsList[1]
         awayPlayer.name = statsList[2]
         awayPlayer.minutes = statsList[3]

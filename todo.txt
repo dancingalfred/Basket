@@ -1,0 +1,20 @@
+1. skriv till excel
+2. göra allt till .exe
+3 se nedan
+
+
+
+
+
+fouls över 4
+fouls 5
+----
+points över 10
+assist 10 eller över
+rebounds 10 eller över
+dubble dubble
+tripple dubble
+----
+över 20 points är wow 
+
+
