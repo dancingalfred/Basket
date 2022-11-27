@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import xlsxwriter
 
 def convertWebpageToSoup(website):
     result = requests.get(website)
@@ -142,10 +143,22 @@ def getAllPlayersBoxScore(soup):
     return homePlayerStats, awayPlayerStats
 
 
+def createExcel(homeTeamName,homeTeamScore,awayTeamName,awayTeamScore,homeTeamPlayerList, awayTeamPlayerList, gameId, competitionId):
+    listToExcel = [[f"Game ID:",f"{gameId}","Competition ID:", f"{competitionId}"],[f"Home Team:",f"{homeTeamName}",f"Away Team:",f"{awayTeamName}"],["Home Team Score",{homeTeamScore},"Away Team Score",{awayTeamScore}],
+    ["Home Team Player Stats"],["Position","Jersey#", "Name", "Minutes", "Points", "2p made", "2p attempted","2p %", "Freetrows Made", "Freethrows attempted","Freethrows %",
+    "Offensive Rebounds", "Defensive Rebounds", "Total Rebounds", "Assists", "Turnovers", "Steals", "Blocks", "Blocks Received", "Personal Fouls", "Fouls on","+/-"],[{}],["Away Team Player Stats"],["Position","Jersey#", "Name", "Minutes", "Points", "2p made", "2p attempted","2p %", "Freetrows Made", "Freethrows attempted","Freethrows %",
+    "Offensive Rebounds", "Defensive Rebounds", "Total Rebounds", "Assists", "Turnovers", "Steals", "Blocks", "Blocks Received", "Personal Fouls", "Fouls on","+/-"],[{}]]
 
 
 
 
 
 
+    new_list = [['first', 'second'], ['third', 'four'], [1, 2, 3, 4, 5, 6]]
+
+    with xlsxwriter.Workbook('test.xlsx') as workbook:
+        worksheet = workbook.add_worksheet()
+
+        for row_num, data in enumerate(listToExcel):
+            worksheet.write_row(row_num, 0, data)
 

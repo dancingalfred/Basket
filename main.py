@@ -1,4 +1,4 @@
-from functions import getTeamInfo,convertWebpageToSoup,getAllPlayersBoxScore
+from functions import getTeamInfo,convertWebpageToSoup,getAllPlayersBoxScore,createExcel
 from datetime import datetime 
 
 start_time = datetime.now() 
@@ -24,3 +24,5 @@ print(f"Spelare nummer:{homeTeamPlayerList[4].number}, {homeTeamPlayerList[4].na
 
 time_elapsed = datetime.now() - start_time 
 print(f"Programmets körtid: {time_elapsed}")
+
+createExcel(homeTeamName,homeTeamScore,awayTeamName,awayTeamScore,homeTeamPlayerList, awayTeamPlayerList, gameId, competitionId)
