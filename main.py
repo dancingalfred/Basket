@@ -3,7 +3,7 @@ from datetime import datetime
 
 start_time = datetime.now() 
 
-gameId = 2110419
+gameId = 2110418
 competitionId = 34106
 #user = 597    osäker på om den behövs
 
