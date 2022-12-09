@@ -62,80 +62,32 @@ def getAllPlayersBoxScore(soup):
             self.plusMinus = plusMinus
 
     boxInfo = soup.find(class_="boxscore smallstats")
-    boxInfoHome, boxInfoAway = boxInfo.find_all(class_="table-wrap")
-
-    boxInfoHome = boxInfoHome.find("tbody")
+    boxInfo = boxInfo.find_all(class_="table-wrap")
+    
+    boxInfoHome = boxInfo[0]
     boxInfoHome = boxInfoHome.find_all("tr")
-    for player in boxInfoHome:
-        playerStats = player.text
-        playerStats = playerStats.replace(" ","")
-        playerStats = playerStats.replace("\n\n\n","\n")
-        playerStats = playerStats.replace("\n",";")
-        playerStats = playerStats[:-1]
-        statsList = list(playerStats.split(";"))
-        homePlayer = Player
-        homePlayer.position = "C"
-        homePlayer.number = statsList[1]
-        homePlayer.name = statsList[2]
-        homePlayer.minutes = statsList[3]
-        homePlayer.points = statsList[4]
-        homePlayer.twoPointsMade = statsList[5]
-        homePlayer.twoPointsAttempted = statsList[6]
-        homePlayer.twoPointsPercentage = statsList[7]
-        homePlayer.threePointsMade = statsList[8]
-        homePlayer.threePointsAttempted = statsList[9]
-        homePlayer.threePointsPercentage = statsList[10]
-        homePlayer.freeThrowsMade = statsList[11]
-        homePlayer.freeThrowsAttempted = statsList[12]
-        homePlayer.freeThrowsPercentage = statsList[13]
-        homePlayer.offensiveRebounds = statsList[14]
-        homePlayer.devensiveRebounds = statsList[15]
-        homePlayer.totalRebounds = statsList[16]
-        homePlayer.assists = statsList[17]
-        homePlayer.turnovers = statsList[18]
-        homePlayer.steals = statsList[19]
-        homePlayer.blocks = statsList[20]
-        homePlayer.blocksReceived = statsList[21]
-        homePlayer.personalFouls = statsList[22]
-        homePlayer.foulsOn = statsList[23]
-        homePlayer.plusMinus = statsList[24]
+    boxInfoHome = boxInfoHome[1:-1]
+    for hPlayer in boxInfoHome:
+        hplayerStats = hPlayer.text
+        hplayerStats = hplayerStats.replace(" ","")
+        hplayerStats = hplayerStats.replace("\n\n\n","\n")
+        hplayerStats = hplayerStats.replace("\n",";")
+        hplayerStats = hplayerStats[:-1]
+        hstatsList = list(hplayerStats.split(";"))
+        homePlayer = Player("C",hstatsList[1],hstatsList[2],hstatsList[3],hstatsList[4],hstatsList[5],hstatsList[6],hstatsList[7],hstatsList[8],hstatsList[9],hstatsList[10],hstatsList[11],hstatsList[12],hstatsList[13],hstatsList[14],hstatsList[15],hstatsList[16],hstatsList[17],hstatsList[18],hstatsList[19],hstatsList[20],hstatsList[21],hstatsList[22],hstatsList[23],hstatsList[24])
         homePlayerStats.append(homePlayer)
 
-    boxInfoAway = boxInfoAway.find("tbody")
+    boxInfoAway = boxInfo[1]
     boxInfoAway = boxInfoAway.find_all("tr")
-    for player in boxInfoAway:
-        playerStats = player.text
+    boxInfoAway = boxInfoAway[1:-1]
+    for aPlayer in boxInfoAway:
+        playerStats = aPlayer.text
         playerStats = playerStats.replace(" ","")
         playerStats = playerStats.replace("\n\n\n","\n")
         playerStats = playerStats.replace("\n",";")
         playerStats = playerStats[:-1]
         statsList = list(playerStats.split(";"))
-        awayPlayer = Player
-        awayPlayer.position = "C"
-        awayPlayer.number = statsList[1]
-        awayPlayer.name = statsList[2]
-        awayPlayer.minutes = statsList[3]
-        awayPlayer.points = statsList[4]
-        awayPlayer.twoPointsMade = statsList[5]
-        awayPlayer.twoPointsAttempted = statsList[6]
-        awayPlayer.twoPointsPercentage = statsList[7]
-        awayPlayer.threePointsMade = statsList[8]
-        awayPlayer.threePointsAttempted = statsList[9]
-        awayPlayer.threePointsPercentage = statsList[10]
-        awayPlayer.freeThrowsMade = statsList[11]
-        awayPlayer.freeThrowsAttempted = statsList[12]
-        awayPlayer.freeThrowsPercentage = statsList[13]
-        awayPlayer.offensiveRebounds = statsList[14]
-        awayPlayer.devensiveRebounds = statsList[15]
-        awayPlayer.totalRebounds = statsList[16]
-        awayPlayer.assists = statsList[17]
-        awayPlayer.turnovers = statsList[18]
-        awayPlayer.steals = statsList[19]
-        awayPlayer.blocks = statsList[20]
-        awayPlayer.blocksReceived = statsList[21]
-        awayPlayer.personalFouls = statsList[22]
-        awayPlayer.foulsOn = statsList[23]
-        awayPlayer.plusMinus = statsList[24]
+        awayPlayer = Player("C",statsList[1],statsList[2],statsList[3],statsList[4],statsList[5],statsList[6],statsList[7],statsList[8],statsList[9],statsList[10],statsList[11],statsList[12],statsList[13],statsList[14],statsList[15],statsList[16],statsList[17],statsList[18],statsList[19],statsList[20],statsList[21],statsList[22],statsList[23],statsList[24])
         awayPlayerStats.append(awayPlayer)
 
 
@@ -144,17 +96,27 @@ def getAllPlayersBoxScore(soup):
 
 
 def createExcel(homeTeamName,homeTeamScore,awayTeamName,awayTeamScore,homeTeamPlayerList, awayTeamPlayerList, gameId, competitionId):
-    listToExcel = [[f"Game ID:",f"{gameId}","Competition ID:", f"{competitionId}"],[f"Home Team:",f"{homeTeamName}",f"Away Team:",f"{awayTeamName}"],["Home Team Score",{homeTeamScore},"Away Team Score",{awayTeamScore}],
-    ["Home Team Player Stats"],["Position","Jersey#", "Name", "Minutes", "Points", "2p made", "2p attempted","2p %", "Freetrows Made", "Freethrows attempted","Freethrows %",
-    "Offensive Rebounds", "Defensive Rebounds", "Total Rebounds", "Assists", "Turnovers", "Steals", "Blocks", "Blocks Received", "Personal Fouls", "Fouls on","+/-"],[{}],["Away Team Player Stats"],["Position","Jersey#", "Name", "Minutes", "Points", "2p made", "2p attempted","2p %", "Freetrows Made", "Freethrows attempted","Freethrows %",
-    "Offensive Rebounds", "Defensive Rebounds", "Total Rebounds", "Assists", "Turnovers", "Steals", "Blocks", "Blocks Received", "Personal Fouls", "Fouls on","+/-"],[{}]]
+    homePlayersStats =[]
+    awayPlayersStats =[]
+
+    for player in homeTeamPlayerList:
+        homePlayersStats.append([player.position,player.number,player.name,player.minutes,player.points,player.twoPointsMade,player.twoPointsAttempted,player.twoPointsPercentage,player.threePointsMade,player.threePointsAttempted,
+        player.threePointsPercentage,player.freeThrowsMade,player.freeThrowsAttempted,player.freeThrowsPercentage,player.offensiveRebounds,player.devensiveRebounds,player.totalRebounds,player.assists,player.turnovers,
+        player.steals,player.blocks,player.blocksReceived,player.personalFouls,player.foulsOn,player.plusMinus])
+
+        #homePlayerStats.append(stats)
 
 
+    for player in awayTeamPlayerList:
+        awayPlayersStats.append([player.position,player.number,player.name,player.minutes,player.points,player.twoPointsMade,player.twoPointsAttempted,player.twoPointsPercentage,player.threePointsMade,player.threePointsAttempted,
+        player.threePointsPercentage,player.freeThrowsMade,player.freeThrowsAttempted,player.freeThrowsPercentage,player.offensiveRebounds,player.devensiveRebounds,player.totalRebounds,player.assists,player.turnovers,
+        player.steals,player.blocks,player.blocksReceived,player.personalFouls,player.foulsOn,player.plusMinus])
 
-
-
-
-    new_list = [['first', 'second'], ['third', 'four'], [1, 2, 3, 4, 5, 6]]
+        #awayPlayerStats.append(stats)
+    
+    listToExcel = [[f"Game ID:",f"{gameId}","Competition ID:", f"{competitionId}"],[f"Home Team:",f"{homeTeamName}",f"Away Team:",f"{awayTeamName}"],["Home Team Score",f"{homeTeamScore}","Away Team Score",f"{awayTeamScore}"],
+    ["Home Team Player Stats"],["Position","Jersey#","Name","Minutes","Points", "2p made","2p attempted","2p %","3p made","3p attempted","3p %","Freetrows Made","Freethrows attempted","Freethrows %","Offensive Rebounds","Defensive Rebounds","Total Rebounds","Assists","Turnovers","Steals","Blocks","Blocks Received","Personal Fouls","Fouls on","+/-"],
+    homePlayersStats[0],["Away Team Player Stats"],["Position","Jersey#","Name","Minutes","Points", "2p made","2p attempted","2p %","3p made","3p attempted","3p %","Freetrows Made","Freethrows attempted","Freethrows %","Offensive Rebounds","Defensive Rebounds","Total Rebounds","Assists","Turnovers","Steals","Blocks","Blocks Received","Personal Fouls","Fouls on","+/-"],awayPlayersStats[0]]
 
     with xlsxwriter.Workbook('test.xlsx') as workbook:
         worksheet = workbook.add_worksheet()
