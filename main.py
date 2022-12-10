@@ -128,8 +128,8 @@ def createExcel(homeTeamName,homeTeamScore,awayTeamName,awayTeamScore,homeTeamPl
         for row_num, data in enumerate(listToExcel):
             worksheet.write_row(row_num, 0, data)
 
-def readTextfileWithGameInfo(fireToRead):
-    with open(fireToRead) as f:
+def readTextfileWithGameInfo(fileToRead):
+    with open(fileToRead) as f:
         lines = f.readlines()
     return lines
 
@@ -145,7 +145,5 @@ homeTeamName,homeTeamScore,awayTeamName,awayTeamScore  = getTeamInfo(summarySoup
 boxScoreSoup = convertWebpageToSoup(boxScore)
 
 homeTeamPlayerList, awayTeamPlayerList = getAllPlayersBoxScore(boxScoreSoup)
-print(f"{homeTeamName}: {homeTeamScore} - {awayTeamName}: {awayTeamScore} ")
-print(f"Spelare nummer:{homeTeamPlayerList[4].number}, {homeTeamPlayerList[4].name}, har just nu {homeTeamPlayerList[4].assists}st assists och har spelat {homeTeamPlayerList[0].minutes} minuter. ")
 
 createExcel(homeTeamName,homeTeamScore,awayTeamName,awayTeamScore,homeTeamPlayerList, awayTeamPlayerList, gameId, competitionId)
